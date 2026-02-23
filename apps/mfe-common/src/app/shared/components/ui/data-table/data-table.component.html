@@ -1,0 +1,51 @@
+<div class="data-table-container">
+  <div *ngIf="loading" class="loading-state">
+    Loading...
+  </div>
+  
+  <div *ngIf="!loading && data.length === 0" class="empty-state">
+    {{ emptyMessage }}
+  </div>
+  
+  <table *ngIf="!loading && data.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of headers" 
+            [style.width]="header.width"
+            [style.text-align]="header.align || 'left'"
+            [class.sortable]="sortable && header.sortable !== false"
+            (click)="header.sortable !== false && onSort(header.key)">
+          {{ header.label }}
+          <span *ngIf="sortedColumn() === header.key" class="sort-icon">
+            {{ getSortIcon(header.key) }}
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of paginatedData; trackBy: trackByFn"
+          [class.clickable]="clickableRows"
+          (click)="onRowClick(row)">
+        <td *ngFor="let header of headers"
+            [style.text-align]="header.align || 'left'">
+          {{ row[header.key] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div *ngIf="!loading && data.length > 0" class="pagination">
+    <button (click)="onPageChange(currentPage - 1)" 
+            [disabled]="currentPage === 1">
+      Previous
+    </button>
+    <span class="page-info">
+      Page {{ currentPage }} of {{ totalPages }} ({{ totalItems }} items)
+    </span>
+    <button (click)="onPageChange(currentPage + 1)" 
+            [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+</div>
+

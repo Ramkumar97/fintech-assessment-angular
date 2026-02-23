@@ -1,0 +1,27 @@
+# Performance Requirements
+
+- Sustain 50+ TPS
+- Maintain 60fps
+- Use Virtual Scroll for tables
+- Use OnPush everywhere
+- No unnecessary re-computations
+
+---
+
+# Web Workers
+
+Worker handles:
+- ACH vs Card vs Wire breakdown totals
+- Failure percentage calculation
+- Heavy aggregation logic
+
+Main thread handles rendering only.
+
+---
+
+# Resilience Strategy
+
+- WebSocket auto reconnect
+- Exponential backoff retry
+- Circuit breaker on repeated API failures
+- Graceful fallback UI

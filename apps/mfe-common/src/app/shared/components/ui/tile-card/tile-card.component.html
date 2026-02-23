@@ -1,0 +1,53 @@
+<div class="tile-card" [class.clickable]="cardClick.observers.length > 0" (click)="onCardClick()">
+  <div *ngIf="loading" class="loading-state">
+    Loading...
+  </div>
+  
+  <div *ngIf="!loading" class="card-content">
+    <h3 class="card-title">{{ title }}</h3>
+    
+    <div class="metrics">
+      <div class="metric">
+        <span class="metric-label">Total Transactions</span>
+        <span class="metric-value">{{ totalTransactions | number }}</span>
+      </div>
+      
+      <div class="metric">
+        <span class="metric-label">Total Amount</span>
+        <span class="metric-value">{{ formattedTotalAmount() }}</span>
+      </div>
+      
+      <div class="metric">
+        <span class="metric-label">Failure Rate</span>
+        <span class="metric-value" [class.danger]="failureRate > 5">
+          {{ formattedFailureRate() }}
+        </span>
+      </div>
+    </div>
+    
+    <div *ngIf="showBreakdown" class="breakdown">
+      <h4>Breakdown by Type</h4>
+      <div class="breakdown-item" *ngFor="let type of ['ach', 'card', 'wire']">
+        <div class="breakdown-header">
+          <span class="breakdown-type" [style.color]="getBreakdownColor(type as any)">
+            {{ type | uppercase }}
+          </span>
+          <span class="breakdown-percentage">
+            {{ breakdown[type as keyof TransactionBreakdown].percentage | number:'1.2-2' }}%
+          </span>
+        </div>
+        <div class="breakdown-details">
+          <span>Count: {{ breakdown[type as keyof TransactionBreakdown].count | number }}</span>
+          <span>Volume: {{ breakdown[type as keyof TransactionBreakdown].volume | currency:currency }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" 
+               [style.width.%]="breakdown[type as keyof TransactionBreakdown].percentage"
+               [style.background-color]="getBreakdownColor(type as any)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

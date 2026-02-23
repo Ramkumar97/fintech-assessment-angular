@@ -1,0 +1,114 @@
+.tile-card {
+  background: var(--color-background, #ffffff);
+  border: 1px solid var(--color-surface, #f8f9fa);
+  border-radius: 8px;
+  padding: var(--spacing-lg, 1.5rem);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tile-card.clickable {
+  cursor: pointer;
+}
+
+.tile-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.loading-state {
+  padding: var(--spacing-xl, 2rem);
+  text-align: center;
+  color: var(--color-text-secondary, #6c757d);
+}
+
+.card-title {
+  margin-bottom: var(--spacing-md, 1rem);
+  color: var(--color-text, #212529);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold, 600);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md, 1rem);
+  margin-bottom: var(--spacing-lg, 1.5rem);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #6c757d);
+  margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold, 600);
+  color: var(--color-text, #212529);
+}
+
+.metric-value.danger {
+  color: var(--color-danger, #dc3545);
+}
+
+.breakdown {
+  margin-top: var(--spacing-lg, 1.5rem);
+  padding-top: var(--spacing-lg, 1.5rem);
+  border-top: 1px solid var(--color-surface, #f8f9fa);
+}
+
+.breakdown h4 {
+  margin-bottom: var(--spacing-md, 1rem);
+  color: var(--color-text, #212529);
+  font-size: 1rem;
+}
+
+.breakdown-item {
+  margin-bottom: var(--spacing-md, 1rem);
+}
+
+.breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.breakdown-type {
+  font-weight: var(--font-weight-bold, 600);
+  font-size: 0.875rem;
+}
+
+.breakdown-percentage {
+  font-weight: var(--font-weight-bold, 600);
+  color: var(--color-text-secondary, #6c757d);
+}
+
+.breakdown-details {
+  display: flex;
+  gap: var(--spacing-md, 1rem);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #6c757d);
+  margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-surface, #f8f9fa);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+

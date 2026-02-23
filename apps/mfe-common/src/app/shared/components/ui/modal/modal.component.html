@@ -1,0 +1,29 @@
+<div *ngIf="isOpen" class="modal-overlay" (click)="onBackdropClick($event)">
+  <div class="modal-container" [class]="getSizeClass()" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">{{ title }}</h2>
+      <button *ngIf="showCloseButton && closable" 
+              class="modal-close" 
+              (click)="closeModal()"
+              aria-label="Close modal">
+        ×
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <ng-content select="[slot=body]">
+        <ng-content></ng-content>
+      </ng-content>
+    </div>
+    
+    <div *ngIf="footerActions.length > 0" class="modal-footer">
+      <button *ngFor="let action of footerActions"
+              [class]="'btn-' + (action.variant || 'secondary')"
+              [disabled]="action.disabled"
+              (click)="onActionClick(action.action)">
+        {{ action.label }}
+      </button>
+    </div>
+  </div>
+</div>
+
