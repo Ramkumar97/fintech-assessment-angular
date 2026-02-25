@@ -9,20 +9,24 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
   template: `
     <div class="transaction-list">
       <h2>Transactions</h2>
-      <div *ngIf="loading" class="loading">Loading...</div>
-      <div *ngIf="!loading && DataTableComponent" class="table-container">
-        <app-data-table
-          [headers]="tableHeaders"
-          [data]="transactions"
-          [pageSize]="pageSize"
-          [currentPage]="currentPage"
-          [totalItems]="totalItems"
-          [loading]="loading"
-          (rowClick)="onRowClick($event)"
-          (pageChange)="onPageChange($event)"
-          (sortChange)="onSortChange($event)"
+      @if(loading) {
+         <div class="loading">Loading...</div>
+      }
+      @else if(!loading && DataTableComponent){ 
+        <div class="table-container">
+          <app-data-table
+            [headers]="tableHeaders"
+            [data]="transactions"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [totalItems]="totalItems"
+            [loading]="loading"
+            (rowClick)="onRowClick($event)"
+            (pageChange)="onPageChange($event)"
+            (sortChange)="onSortChange($event)"
         />
       </div>
+      }
     </div>
   `,
   styles: [`

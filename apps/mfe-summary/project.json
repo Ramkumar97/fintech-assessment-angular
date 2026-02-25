@@ -1,0 +1,62 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "mfe-summary",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "standalone": true,
+      "changeDetection": "OnPush"
+    }
+  },
+  "sourceRoot": "apps/mfe-summary/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/module-federation:build",
+      "options": {
+        "outputPath": "dist/mfe-summary",
+        "index": "apps/mfe-summary/src/index.html",
+        "main": "apps/mfe-summary/src/main.ts",
+        "tsConfig": "apps/mfe-summary/tsconfig.app.json",
+        "polyfills": [
+          "zone.js"
+        ],
+        "assets": [
+          "apps/mfe-summary/src/favicon.ico",
+          "apps/mfe-summary/src/assets"
+        ],
+        "styles": [
+          "apps/mfe-summary/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/module-federation:server",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "mfe-summary:build:production"
+        },
+        "development": {
+          "buildTarget": "mfe-summary:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  }
+}

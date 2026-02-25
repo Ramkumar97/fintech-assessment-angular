@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { TransactionStore } from '../store/transaction.store';
 import { EventBus } from '../bridge/event-bus';
-import { Transaction, TransactionType, TransactionStatus } from '../../../../libs/shared/src/lib/types/transaction.types';
+import { Transaction, TransactionType, TransactionStatus } from '@shared-components';
 
 @Injectable({ providedIn: 'root' })
 export class WebSocketService {

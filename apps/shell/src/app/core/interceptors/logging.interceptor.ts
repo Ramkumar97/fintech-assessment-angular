@@ -17,7 +17,7 @@ export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
   
   return next(req).pipe(
     tap({
-      next: (response) => {
+      next: (response: any) => {
         const duration = Date.now() - startTime;
         console.log(`[HTTP Response] ${req.method} ${req.url}`, {
           status: response.status,

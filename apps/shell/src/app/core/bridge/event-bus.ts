@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { Transaction, TransactionStatus } from '../../../../libs/shared/src/lib/types/transaction.types';
+import { Transaction, TransactionStatus } from '@shared-components';
 
 @Injectable({ providedIn: 'root' })
 export class EventBus {

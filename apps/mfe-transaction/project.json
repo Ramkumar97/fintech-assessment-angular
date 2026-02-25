@@ -1,0 +1,62 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "mfe-transaction",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "standalone": true,
+      "changeDetection": "OnPush"
+    }
+  },
+  "sourceRoot": "apps/mfe-transaction/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/module-federation:build",
+      "options": {
+        "outputPath": "dist/mfe-transaction",
+        "index": "apps/mfe-transaction/src/index.html",
+        "main": "apps/mfe-transaction/src/main.ts",
+        "tsConfig": "apps/mfe-transaction/tsconfig.app.json",
+        "polyfills": [
+          "zone.js"
+        ],
+        "assets": [
+          "apps/mfe-transaction/src/favicon.ico",
+          "apps/mfe-transaction/src/assets"
+        ],
+        "styles": [
+          "apps/mfe-transaction/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "ngx-build-plus:dev-server",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "mfe-transaction:build:production"
+        },
+        "development": {
+          "buildTarget": "mfe-transaction:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  }
+}

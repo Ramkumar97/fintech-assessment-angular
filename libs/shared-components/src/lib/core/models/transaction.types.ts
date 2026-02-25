@@ -30,4 +30,3 @@ export interface SummaryBreakdown {
   failureRate: number;
   breakdown: TransactionBreakdown;
 }
-

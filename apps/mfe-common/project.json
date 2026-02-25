@@ -1,0 +1,59 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "mfe-common",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "standalone": true,
+      "changeDetection": "OnPush"
+    }
+  },
+  "sourceRoot": "apps/mfe-common/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/module-federation:build",
+      "options": {
+        "outputPath": "dist/mfe-common",
+        "index": "apps/mfe-common/src/index.html",
+        "main": "apps/mfe-common/src/main.ts",
+        "tsConfig": "apps/mfe-common/tsconfig.app.json",
+        "assets": [
+          "apps/mfe-common/src/favicon.ico",
+          "apps/mfe-common/src/assets"
+        ],
+        "styles": [
+          "apps/mfe-common/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "ngx-build-plus:dev-server",
+      "options": {
+        "port": 4203,
+        "publicHost": "http://localhost:4203"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "mfe-common:build:production"
+        },
+        "development": {
+          "buildTarget": "mfe-common:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  }
+}

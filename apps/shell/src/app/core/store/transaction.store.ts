@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Transaction, TransactionBreakdown, SummaryBreakdown, TransactionStatus } from '../../../../libs/shared/src/lib/types/transaction.types';
+import { Transaction,TransactionBreakdown, SummaryBreakdown, TransactionStatus } from '@shared-components';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionStore {
