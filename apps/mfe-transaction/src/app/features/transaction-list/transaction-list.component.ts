@@ -1,18 +1,18 @@
 import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
-import { loadRemoteModule } from '@angular-architects/module-federation';
+import { DataTableComponent, type TableHeader } from 'mfe-common/DataTable';
 
 @Component({
   selector: 'app-transaction-list',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, DatePipe],
+  imports: [CommonModule, CurrencyPipe, DatePipe, DataTableComponent],
   template: `
     <div class="transaction-list">
       <h2>Transactions</h2>
       @if(loading) {
          <div class="loading">Loading...</div>
       }
-      @else if(!loading && DataTableComponent){ 
+      @else if(!loading){ 
         <div class="table-container">
           <app-data-table
             [headers]="tableHeaders"
@@ -39,7 +39,6 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
   `]
 })
 export class TransactionListComponent implements OnInit {
-  DataTableComponent: any = null;
   loading = true;
   transactions: any[] = [];
   tableHeaders: TableHeader[] = [
@@ -55,22 +54,10 @@ export class TransactionListComponent implements OnInit {
   
   async ngOnInit() {
     try {
-      // Load DataTable from mfe-common
-      const dataTableModule = await loadRemoteModule({
-        type: 'module',
-        remoteEntry: 'http://localhost:4203/remoteEntry.js',
-        exposedModule: './DataTable'
-      });
-      this.DataTableComponent = dataTableModule.DataTableComponent;
+      // Load GlobalStateBridge from Shell using Nx Module Federation
+      const module = await import('shell/GlobalStateBridge');
       
-      // Load GlobalStateBridge from Shell
-      const stateBridgeModule = await loadRemoteModule({
-        type: 'module',
-        remoteEntry: 'http://localhost:4200/remoteEntry.js',
-        exposedModule: './GlobalStateBridge'
-      });
-      
-      const stateBridge = stateBridgeModule.GlobalStateBridge;
+      const stateBridge = module.GlobalStateBridge;
       
       // Subscribe to transactions signal
       effect(() => {

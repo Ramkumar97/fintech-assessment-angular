@@ -13,7 +13,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-architects/module-federation:build",
+      "executor": "@nx/angular:webpack-browser",
       "options": {
         "outputPath": "dist/mfe-summary",
         "index": "apps/mfe-summary/src/index.html",
@@ -43,10 +43,11 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-architects/module-federation:server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4201,
-        "publicHost": "http://localhost:4201"
+        "publicHost": "http://localhost:4201",
+        "buildTarget": "mfe-summary:build"
       },
       "configurations": {
         "production": {

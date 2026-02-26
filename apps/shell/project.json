@@ -13,7 +13,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-architects/module-federation:build",
+      "executor": "@nx/angular:webpack-browser",
       "options": {
         "outputPath": "dist/shell",
         "index": "apps/shell/src/index.html",
@@ -58,10 +58,11 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-architects/module-federation:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4200,
-        "publicHost": "http://localhost:4200"
+        "publicHost": "http://localhost:4200",
+        "buildTarget": "shell:build"
       },
       "configurations": {
         "production": {

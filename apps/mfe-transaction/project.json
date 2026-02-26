@@ -13,7 +13,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-architects/module-federation:build",
+      "executor": "@nx/angular:module-federation",
       "options": {
         "outputPath": "dist/mfe-transaction",
         "index": "apps/mfe-transaction/src/index.html",
@@ -28,7 +28,20 @@
         ],
         "styles": [
           "apps/mfe-transaction/src/styles.scss"
-        ]
+        ],
+        "moduleFederationConfig": {
+          "name": "mfeTransaction",
+          "remotes": ["shell", "mfe-common"],
+          "exposes": {
+            "./TransactionList": "./src/app/features/transaction-list/transaction-list.component.ts"
+          },
+          "shared": {
+            "@angular/core": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+            "@angular/common": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+            "@angular/router": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+            "rxjs": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" }
+          }
+        }
       },
       "configurations": {
         "production": {
@@ -43,10 +56,11 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "ngx-build-plus:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4202,
-        "publicHost": "http://localhost:4202"
+        "publicHost": "http://localhost:4202",
+        "buildTarget": "mfe-transaction:build"
       },
       "configurations": {
         "production": {

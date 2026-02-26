@@ -13,7 +13,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-architects/module-federation:build",
+      "executor": "@nx/angular:module-federation",
       "options": {
         "outputPath": "dist/mfe-common",
         "index": "apps/mfe-common/src/index.html",
@@ -25,7 +25,22 @@
         ],
         "styles": [
           "apps/mfe-common/src/styles.scss"
-        ]
+        ],
+        "moduleFederationConfig": {
+          "name": "mfeCommon",
+          "exposes": {
+            "./DataTable": "./src/app/shared/components/ui/data-table/data-table.component.ts",
+            "./TileCard": "./src/app/shared/components/ui/tile-card/tile-card.component.ts",
+            "./Modal": "./src/app/shared/components/ui/modal/modal.component.ts",
+            "./CommonComponents": "./src/app/shared/components/index.ts"
+          },
+          "shared": {
+            "@angular/core": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+            "@angular/common": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+            "@angular/router": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" },
+            "rxjs": { "singleton": true, "strictVersion": true, "requiredVersion": "auto" }
+          }
+        }
       },
       "configurations": {
         "production": {
@@ -40,10 +55,11 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "ngx-build-plus:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "options": {
         "port": 4203,
-        "publicHost": "http://localhost:4203"
+        "publicHost": "http://localhost:4203",
+        "buildTarget": "mfe-common:build"
       },
       "configurations": {
         "production": {

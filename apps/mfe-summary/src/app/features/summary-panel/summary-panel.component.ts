@@ -1,6 +1,5 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { loadRemoteModule } from '@angular-architects/module-federation';
 
 @Component({
   selector: 'app-summary-panel',
@@ -87,23 +86,19 @@ export class SummaryPanelComponent implements OnInit {
   
   async ngOnInit() {
     try {
-      // Load GlobalStateBridge from Shell
-      const module = await loadRemoteModule({
-        type: 'module',
-        remoteEntry: 'http://localhost:4200/remoteEntry.js',
-        exposedModule: './GlobalStateBridge'
-      });
+      // Load GlobalStateBridge from Shell using Nx Module Federation
+      // const module = await import('shell/GlobalStateBridge');
       
-      const stateBridge = module.GlobalStateBridge;
+      // const stateBridge = module.GlobalStateBridge;
       
-      // Subscribe to summary breakdown signal
-      effect(() => {
-        const breakdown = stateBridge.summaryBreakdown();
-        if (breakdown) {
-          this.summary = breakdown;
-          this.loading = false;
-        }
-      });
+      // // Subscribe to summary breakdown signal
+      // effect(() => {
+      //   const breakdown = stateBridge.summaryBreakdown();
+      //   if (breakdown) {
+      //     this.summary = breakdown;
+      //     this.loading = false;
+      //   }
+      // });
     } catch (error) {
       console.error('Error loading GlobalStateBridge:', error);
       this.loading = false;
